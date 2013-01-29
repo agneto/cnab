@@ -4,3 +4,4 @@
 target/
 .idea/
 cnab.iml
+.DS_Store
