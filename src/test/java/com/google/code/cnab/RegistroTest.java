@@ -10,8 +10,8 @@ import com.google.code.cnab.arquivoretorno.Registro;
 
 public class RegistroTest {
 
-    private static final String LINHA = "102039186090001234567870000000318                             82105708253      000                        1421010113                              010113000000000975000113776000000000000100663101210113              0000000000000000000000000000000000000000000000009750000000000000000000000000001210113                         0000000000000000000000000                                             000002";
-    private final Registro registro = new Registro(LINHA);
+    private static final String LINHA = "102123456780001231234560000000123                             82105708253      000                        1421010113                              010113000000000975000113776000000000000100663101210113              0000000000000000000000000000000000000000000000009750000000000000000000000000001210113                         0000000000000000000000000                                             000002";
+    private final Registro registro = new Registro(RegistroTest.LINHA);
 
     @Test
     public void codigoRegistro() {
@@ -25,12 +25,12 @@ public class RegistroTest {
 
     @Test
     public void numeroInscricao() {
-        Assert.assertEquals("03918609000123", this.registro.getNumeroInscricao());
+        Assert.assertEquals("12345678000123", this.registro.getNumeroInscricao());
     }
 
     @Test
     public void codigoEmpresa() {
-        Assert.assertEquals("4567870000000318", this.registro.getCodigoEmpresa());
+        Assert.assertEquals("1234560000000123", this.registro.getCodigoEmpresa());
     }
 
     @Test
