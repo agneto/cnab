@@ -6,9 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.code.cnab.arquivoretorno.Header;
-import com.google.code.cnab.arquivoretorno.Registro;
-import com.google.code.cnab.arquivoretorno.Trailer;
+import com.google.code.cnab.arquivoretorno.header.Header;
+import com.google.code.cnab.arquivoretorno.registro.Registro;
+import com.google.code.cnab.arquivoretorno.trailer.Trailer;
 
 public class App {
     public static void main(final String[] args) {
@@ -32,7 +32,7 @@ public class App {
                         final Registro registro = new Registro(linha);
                         registros.add(registro);
                         System.out.println(registro.getInscricaoDaEmpresa());
-                        System.out.println(new SimpleDateFormat("dd/MM/yyyy").format(registro.getVencimento().getTime()));
+                        System.out.println(registro.getVencimento() != null ? new SimpleDateFormat("dd/MM/yy").format(registro.getVencimento().getTime()) : "00/00/00");
                         System.out.println(registro.getFormaPagamento());
                         System.out.println(registro.getValorTitulo());
                         System.out.println(registro.getCodigoEmpresa());
@@ -48,5 +48,6 @@ public class App {
         } catch (final Exception e) {
             e.printStackTrace();
         }
+
     }
 }
