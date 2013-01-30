@@ -5,7 +5,7 @@ public class Trailer {
     private final String linha;
 
     public Trailer(final String linha) {
-        if (!linha.startsWith(this.getCodigoRegistro().trim())) {
+        if (!linha.startsWith(this.getCodigoRegistro())) {
             throw new IllegalArgumentException("Trailer começa com 9");
         }
         this.linha = linha;

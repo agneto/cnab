@@ -35,6 +35,8 @@ public class App {
                         System.out.println(new SimpleDateFormat("dd/MM/yyyy").format(registro.getVencimento().getTime()));
                         System.out.println(registro.getFormaPagamento());
                         System.out.println(registro.getValorTitulo());
+                        System.out.println(registro.getCodigoEmpresa());
+                        System.out.println(registro.getFloatNegociado());
                         System.out.println("------------------------------------------------------");
                     } else {
                         final Trailer trailer = new Trailer(linha);

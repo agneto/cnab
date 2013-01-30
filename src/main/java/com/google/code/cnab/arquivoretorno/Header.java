@@ -18,7 +18,7 @@ public class Header {
     }
 
     public Integer getCodigoRetorno() {
-        return Integer.valueOf(this.linha.substring(0, 1));
+        return Integer.valueOf(this.linha.substring(1, 2));
     }
 
     public String getLiteralRetorno() {
@@ -29,7 +29,7 @@ public class Header {
         return this.linha.substring(9, 11).trim();
     }
 
-    public String LiteralServico() {
+    public String getLiteralServico() {
         return this.linha.substring(11, 26).trim();
     }
 
@@ -42,17 +42,17 @@ public class Header {
     }
 
     public String getCodigoBanco() {
-        return this.linha.substring(76, 79);
+        return this.linha.substring(76, 79).trim();
     }
 
     public String getNomeBanco() {
-        return this.linha.substring(79, 94);
+        return this.linha.substring(79, 94).trim();
     }
 
     public Calendar getDataGravacao() {
         final Calendar calendar = Calendar.getInstance();
         try {
-            calendar.setTime(new SimpleDateFormat("ddMMyy").parse(this.linha.substring(94, 100)));
+            calendar.setTime(new SimpleDateFormat("ddMMyy").parse(this.linha.substring(94, 100).trim()));
             return calendar;
         } catch (final Exception e) {
             e.printStackTrace();
@@ -61,14 +61,14 @@ public class Header {
     }
 
     public String getMensagem() {
-        return this.linha.substring(100, 158).trim();
+        return this.linha.substring(100, 158);
     }
 
     public Integer getNumeroSequencialA() {
-        return Integer.parseInt(this.linha.substring(389, 394));
+        return Integer.parseInt(this.linha.substring(389, 394).trim());
     }
 
     public Integer getNumeroSequencialB() {
-        return Integer.parseInt(this.linha.substring(389, 394));
+        return Integer.parseInt(this.linha.substring(394, 400).trim());
     }
 }

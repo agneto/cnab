@@ -32,7 +32,7 @@ public class Registro {
     }
 
     public String getUsoEmpresa() {
-        return this.linha.substring(37, 62).trim();
+        return this.linha.substring(37, 62);
     }
 
     public String getNossoNumero() {
@@ -44,7 +44,7 @@ public class Registro {
     }
 
     public String getUsoBanco() {
-        return this.linha.substring(84, 106).trim();
+        return this.linha.substring(82, 106);
     }
 
     public String getCarteira() {
@@ -58,7 +58,7 @@ public class Registro {
     public Calendar getDataOcorrencia() {
         final Calendar dataOcorrecncia = Calendar.getInstance();
         try {
-            dataOcorrecncia.setTime(new SimpleDateFormat("ddMMyy").parse(this.linha.substring(110, 116).trim()));
+            dataOcorrecncia.setTime(new SimpleDateFormat("ddMMyy").parse(this.linha.substring(110, 116)));
             return dataOcorrecncia;
         } catch (final Exception e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class Registro {
     }
 
     public String getSeuNumero() {
-        return this.linha.substring(116, 126).trim();
+        return this.linha.substring(116, 126);
     }
 
     public Calendar getVencimento() {
@@ -82,7 +82,7 @@ public class Registro {
     }
 
     public BigDecimal getValorTitulo() {
-        return new BigDecimal(this.removerZerosAEsquerda(this.linha.substring(152, 165).trim()));
+        return new BigDecimal(this.linha.substring(152, 165).trim());
     }
 
     public String getCodigoBanco() {
@@ -98,7 +98,7 @@ public class Registro {
     }
 
     public BigDecimal getTarifaDeCobranca() {
-        return new BigDecimal(this.removerZerosAEsquerda(this.linha.substring(175, 188).trim()));
+        return new BigDecimal(this.linha.substring(175, 188).trim());
     }
 
     public Integer getTipoLiquidacao() {
@@ -116,7 +116,7 @@ public class Registro {
     public Calendar getDataDebitoTarifa() {
         final Calendar dataDebitoTarifa = Calendar.getInstance();
         try {
-            dataDebitoTarifa.setTime(new SimpleDateFormat("ddMMyy").parse(this.linha.substring(196, 200).trim()));
+            dataDebitoTarifa.setTime(new SimpleDateFormat("ddMMyy").parse(this.linha.substring(194, 200).trim()));
         } catch (final Exception e) {
             e.printStackTrace();
         }
@@ -124,27 +124,27 @@ public class Registro {
     }
 
     public BigDecimal getIof() {
-        return new BigDecimal(this.removerZerosAEsquerda(this.linha.substring(214, 227).trim()));
+        return new BigDecimal(this.linha.substring(214, 227));
     }
 
     public BigDecimal getValorAbatimento() {
-        return new BigDecimal(this.removerZerosAEsquerda(this.linha.substring(227, 240).trim()));
+        return new BigDecimal(this.linha.substring(227, 240).trim());
     }
 
     public BigDecimal getDescontos() {
-        return new BigDecimal(this.removerZerosAEsquerda(this.linha.substring(240, 253).trim()));
+        return new BigDecimal(this.linha.substring(240, 253).trim());
     }
 
     public BigDecimal getValorPrincipal() {
-        return new BigDecimal(this.removerZerosAEsquerda(this.linha.substring(253, 266).trim()));
+        return new BigDecimal(this.linha.substring(253, 266).trim());
     }
 
     public BigDecimal getValorJuros() {
-        return new BigDecimal(this.removerZerosAEsquerda(this.linha.substring(266, 279).trim()));
+        return new BigDecimal(this.linha.substring(266, 279).trim());
     }
 
     public BigDecimal getValorMulta() {
-        return new BigDecimal(this.removerZerosAEsquerda(this.linha.substring(279, 292).trim()));
+        return new BigDecimal(this.linha.substring(279, 292).trim());
     }
 
     public Integer getCodigoMoeda() {
@@ -163,20 +163,6 @@ public class Registro {
     }
 
     public Integer getSequencial() {
-        return Integer.parseInt(this.linha.substring(394, 400).trim());// 394 a 400
-    }
-
-    // substitui os zeros a esquerda por caracter branco
-    private String removerZerosAEsquerda(final String numero) {
-        final char[] s = numero.toCharArray();
-        int count = 0;
-        for (final char element : s) {
-            if (element == '0') {
-                count++;
-            } else {
-                break;
-            }
-        }
-        return numero.substring(count);
+        return Integer.parseInt(this.linha.substring(394, 400).trim());
     }
 }
