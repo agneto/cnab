@@ -4,13 +4,22 @@ public enum FormaPagamento {
     DINHEIRO(1),
     CHEQUE(2);
 
-    private int value;
+    private int codigo;
 
-    private FormaPagamento(final int value) {
-        this.value = value;
+    private FormaPagamento(final int codigo) {
+        this.codigo = codigo;
     }
 
-    public int getValue() {
-        return this.value;
+    public int getCodigo() {
+        return this.codigo;
+    }
+
+    public static FormaPagamento valueOfCodigo(int codigo) {
+        for (FormaPagamento formaPagamento : values()) {
+            if (codigo == formaPagamento.getCodigo()) {
+                return formaPagamento;
+            }
+        }
+        return null;
     }
 }

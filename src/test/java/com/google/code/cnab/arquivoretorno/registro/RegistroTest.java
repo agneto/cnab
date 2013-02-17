@@ -1,13 +1,11 @@
 package com.google.code.cnab.arquivoretorno.registro;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.google.code.cnab.arquivoretorno.registro.Registro;
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class RegistroTest {
 
@@ -21,7 +19,7 @@ public class RegistroTest {
 
     @Test
     public void inscricaoDaEmpresa() {
-        Assert.assertEquals("02", this.registro.getInscricaoDaEmpresa().getValue());
+        Assert.assertEquals("02", this.registro.getInscricaoDaEmpresa().getCodigo());
     }
 
     @Test
@@ -101,17 +99,17 @@ public class RegistroTest {
 
     @Test
     public void tarifaCobranca() {
-        Assert.assertEquals(new BigDecimal(1), this.registro.getTarifaDeCobranca());
+        Assert.assertEquals(BigDecimal.ONE, this.registro.getTarifaDeCobranca());
     }
 
     @Test
     public void tipoLiquidacao() {
-        Assert.assertEquals(663, this.registro.getTipoLiquidacao().intValue());
+        Assert.assertEquals(663, this.registro.getTipoLiquidacao());
     }
 
     @Test
     public void formaPagamento() {
-        Assert.assertEquals(1, this.registro.getFormaPagamento().getValue());
+        Assert.assertEquals(1, this.registro.getFormaPagamento().getCodigo());
     }
 
     @Test
@@ -126,17 +124,17 @@ public class RegistroTest {
 
     @Test
     public void valorIof() {
-        Assert.assertEquals(new BigDecimal("0"), this.registro.getIof());
+        Assert.assertEquals(BigDecimal.ZERO, this.registro.getIof());
     }
 
     @Test
     public void valorAbatimento() {
-        Assert.assertEquals(new BigDecimal("0"), this.registro.getValorAbatimento());
+        Assert.assertEquals(BigDecimal.ZERO, this.registro.getValorAbatimento());
     }
 
     @Test
     public void descontos() {
-        Assert.assertEquals(new BigDecimal("0"), this.registro.getDescontos());
+        Assert.assertEquals(BigDecimal.ZERO, this.registro.getDescontos());
     }
 
     @Test
@@ -146,17 +144,17 @@ public class RegistroTest {
 
     @Test
     public void valorJuros() {
-        Assert.assertEquals(new BigDecimal("0"), this.registro.getValorJuros());
+        Assert.assertEquals(BigDecimal.ZERO, this.registro.getValorJuros());
     }
 
     @Test
     public void valorMulta() {
-        Assert.assertEquals(new BigDecimal("0"), this.registro.getValorMulta());
+        Assert.assertEquals(BigDecimal.ZERO, this.registro.getValorMulta());
     }
 
     @Test
     public void codigoMoeda() {
-        Assert.assertEquals(1, this.registro.getCodigoMoeda().intValue());
+        Assert.assertEquals(1, this.registro.getCodigoMoeda());
     }
 
     @Test

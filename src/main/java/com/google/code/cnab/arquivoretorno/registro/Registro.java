@@ -20,15 +20,15 @@ public class Registro {
     }
 
     public InscricaoDaEmpresa getInscricaoDaEmpresa() {
-        return this.linha.substring(1, 3).trim().equals("02") ? InscricaoDaEmpresa.CGC : InscricaoDaEmpresa.CPF;
+        return InscricaoDaEmpresa.valueOfCodigo(this.linha.substring(1, 3));
     }
 
     public String getNumeroInscricao() {
-        return this.linha.substring(3, 17).trim();
+        return this.linha.substring(3, 17);
     }
 
     public String getCodigoEmpresa() {
-        return this.linha.substring(17, 33).trim();
+        return this.linha.substring(17, 33);
     }
 
     public String getUsoEmpresa() {
@@ -36,11 +36,11 @@ public class Registro {
     }
 
     public String getNossoNumero() {
-        return this.linha.substring(62, 73).trim();
+        return this.linha.substring(62, 73);
     }
 
     public String getCodigoRejeicao() {
-        return this.linha.substring(79, 82).trim();
+        return this.linha.substring(79, 82);
     }
 
     public String getUsoBanco() {
@@ -48,20 +48,27 @@ public class Registro {
     }
 
     public String getCarteira() {
-        return this.linha.substring(106, 108).trim();
+        return this.linha.substring(106, 108);
     }
 
     public String getCodigoOcorrencia() {
-        return this.linha.substring(108, 110).trim();
+        return this.linha.substring(108, 110);
     }
 
     public Date getDataOcorrencia() {
-        final String dataOcorrencia = this.linha.substring(110, 116);
-        if (!dataOcorrencia.equals("000000")) {
-            return new GregorianCalendar(2000 + Integer.parseInt(dataOcorrencia.substring(4)), Integer.parseInt(dataOcorrencia.substring(2, 4)) - 1, Integer.parseInt(dataOcorrencia.substring(0, 2))).getTime();
-        } else {
-            return null;
-        }
+        return "000000".equals(this.linha.substring(110, 116)) ? null : new GregorianCalendar(getDataOcorrenciaAno(), getDataOcorrenciaMes() - 1, getDataOcorrenciaDia()).getTime();
+    }
+
+    private int getDataOcorrenciaAno() {
+        return 2000 + Integer.parseInt(this.linha.substring(114, 116));
+    }
+
+    private int getDataOcorrenciaMes() {
+        return Integer.parseInt(this.linha.substring(112, 114));
+    }
+
+    private int getDataOcorrenciaDia() {
+        return Integer.parseInt(this.linha.substring(110, 112));
     }
 
     public String getSeuNumero() {
@@ -69,53 +76,67 @@ public class Registro {
     }
 
     public Date getVencimento() {
-        final String dataVencimento = this.linha.substring(146, 152).trim();
-        if (!dataVencimento.equals("000000")) {
-            return new GregorianCalendar(2000 + Integer.parseInt(dataVencimento.substring(4)), Integer.parseInt(dataVencimento.substring(2, 4)) - 1, Integer.parseInt(dataVencimento.substring(0, 2))).getTime();
-        } else {
-            return null;
-        }
+        return "000000".equals(this.linha.substring(146, 152)) ? null : new GregorianCalendar(getDataVencimentoAno(), getDataVencimentoMes() - 1, getDataVencimentoDia()).getTime();
+    }
+
+    private int getDataVencimentoAno() {
+        return 2000 + Integer.parseInt(this.linha.substring(150, 152));
+    }
+
+    private int getDataVencimentoMes() {
+        return Integer.parseInt(this.linha.substring(148, 150));
+    }
+
+    private int getDataVencimentoDia() {
+        return Integer.parseInt(this.linha.substring(146, 148));
     }
 
     public BigDecimal getValorTitulo() {
-        return new BigDecimal(this.linha.substring(152, 165).trim()).divide(new BigDecimal(100));
+        return new BigDecimal(this.linha.substring(152, 165)).divide(new BigDecimal(100));
     }
 
     public String getCodigoBanco() {
-        return this.linha.substring(165, 168).trim();
+        return this.linha.substring(165, 168);
     }
 
     public String getAgenciaCobradora() {
-        return this.linha.substring(168, 173).trim();
+        return this.linha.substring(168, 173);
     }
 
     public String getEspecie() {
-        return this.linha.substring(173, 175).trim();
+        return this.linha.substring(173, 175);
     }
 
     public BigDecimal getTarifaDeCobranca() {
-        return new BigDecimal(this.linha.substring(175, 188).trim()).divide(new BigDecimal(100));
+        return new BigDecimal(this.linha.substring(175, 188)).divide(new BigDecimal(100));
     }
 
-    public Integer getTipoLiquidacao() {
-        return Integer.parseInt(this.linha.substring(188, 191).trim());
+    public int getTipoLiquidacao() {
+        return Integer.parseInt(this.linha.substring(188, 191));
     }
 
     public FormaPagamento getFormaPagamento() {
-        return this.linha.substring(191, 192).equals("1") ? FormaPagamento.DINHEIRO : FormaPagamento.CHEQUE;
+        return FormaPagamento.valueOfCodigo(Integer.parseInt(this.linha.substring(191, 192)));
     }
 
     public int getFloatNegociado() {
-        return Integer.parseInt(this.linha.substring(192, 194).trim());
+        return Integer.parseInt(this.linha.substring(192, 194));
     }
 
     public Date getDataDebitoTarifa() {
-        final String debitoTarifa = this.linha.substring(194, 200).trim();
-        if (!debitoTarifa.equals("000000")) {
-            return new GregorianCalendar(2000 + Integer.parseInt(debitoTarifa.substring(4)), Integer.parseInt(debitoTarifa.substring(2, 4)) - 1, Integer.parseInt(debitoTarifa.substring(0, 2))).getTime();
-        } else {
-            return null;
-        }
+        return "000000".equals(this.linha.substring(194, 200)) ? null : new GregorianCalendar(getDataDebitoTarifaAno(), getDataDebitoTarifaMes() - 1, getDataDebitoTarifaDia()).getTime();
+    }
+
+    private int getDataDebitoTarifaAno() {
+        return 2000 + Integer.parseInt(this.linha.substring(198, 200));
+    }
+
+    private int getDataDebitoTarifaMes() {
+        return Integer.parseInt(this.linha.substring(196, 198));
+    }
+
+    private int getDataDebitoTarifaDia() {
+        return Integer.parseInt(this.linha.substring(194, 196));
     }
 
     public BigDecimal getIof() {
@@ -123,39 +144,46 @@ public class Registro {
     }
 
     public BigDecimal getValorAbatimento() {
-        return new BigDecimal(this.linha.substring(227, 240).trim()).divide(new BigDecimal(100));
+        return new BigDecimal(this.linha.substring(227, 240)).divide(new BigDecimal(100));
     }
 
     public BigDecimal getDescontos() {
-        return new BigDecimal(this.linha.substring(240, 253).trim()).divide(new BigDecimal(100));
+        return new BigDecimal(this.linha.substring(240, 253)).divide(new BigDecimal(100));
     }
 
     public BigDecimal getValorPrincipal() {
-        return new BigDecimal(this.linha.substring(253, 266).trim()).divide(new BigDecimal(100));
+        return new BigDecimal(this.linha.substring(253, 266)).divide(new BigDecimal(100));
     }
 
     public BigDecimal getValorJuros() {
-        return new BigDecimal(this.linha.substring(266, 279).trim()).divide(new BigDecimal(100));
+        return new BigDecimal(this.linha.substring(266, 279)).divide(new BigDecimal(100));
     }
 
     public BigDecimal getValorMulta() {
-        return new BigDecimal(this.linha.substring(279, 292).trim()).divide(new BigDecimal(100));
+        return new BigDecimal(this.linha.substring(279, 292)).divide(new BigDecimal(100));
     }
 
-    public Integer getCodigoMoeda() {
+    public int getCodigoMoeda() {
         return Integer.parseInt(this.linha.substring(292, 293));
     }
 
     public Date getDataCredito() {
-        final String dtCredito = this.linha.substring(293, 299).trim();
-        if (!dtCredito.equals("000000")) {
-            return new GregorianCalendar(2000 + Integer.parseInt(dtCredito.substring(4)), Integer.parseInt(dtCredito.substring(2, 4)) - 1, Integer.parseInt(dtCredito.substring(0, 2))).getTime();
-        } else {
-            return null;
-        }
+        return "000000".equals(this.linha.substring(293, 299)) ? null : new GregorianCalendar(getDataCreditoAno(), getDataCreditoMes() - 1, getDataCreditoDia()).getTime();
+    }
+
+    private int getDataCreditoAno() {
+        return 2000 + Integer.parseInt(this.linha.substring(297, 299));
+    }
+
+    private int getDataCreditoMes() {
+        return Integer.parseInt(this.linha.substring(295, 297));
+    }
+
+    private int getDataCreditoDia() {
+        return Integer.parseInt(this.linha.substring(293, 295));
     }
 
     public int getSequencial() {
-        return Integer.parseInt(this.linha.substring(394, 400).trim());
+        return Integer.parseInt(this.linha.substring(394, 400));
     }
 }
