@@ -1,53 +1,44 @@
 package com.google.code.cnab;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import com.google.code.cnab.arquivoretorno.Leitor;
 import com.google.code.cnab.arquivoretorno.header.Header;
 import com.google.code.cnab.arquivoretorno.registro.Registro;
 import com.google.code.cnab.arquivoretorno.trailer.Trailer;
 
 public class App {
+    private static final Logger log = Logger.getLogger(App.class);
+
     public static void main(final String[] args) {
-        // System.out.println("Oi mundo!");
-        new App().lerArquivo("/Users/abilio/Downloads/R19011.RET.txt");
-    }
+        Header header;
+        Trailer trailer;
+        List<Registro> registros;
 
-    public void lerArquivo(final String caminhoArquivo) {
-        String linha = null;
-
-        final List<Registro> registros = new ArrayList<Registro>();
-        try (FileReader reader = new FileReader(caminhoArquivo)) {
-            try (BufferedReader leitor = new BufferedReader(reader)) {
-
-                while ((linha = leitor.readLine()) != null) {
-                    // leitura do header
-                    if (linha.startsWith("0")) {
-                        new Header(linha);
-                        // leitura do registro
-                    } else if (linha.startsWith("1")) {
-                        final Registro registro = new Registro(linha);
-                        registros.add(registro);
-                        System.out.println(registro.getInscricaoDaEmpresa());
-                        System.out.println(registro.getVencimento() != null ? new SimpleDateFormat("dd/MM/yy").format(registro.getVencimento().getTime()) : "00/00/00");
-                        System.out.println(registro.getFormaPagamento());
-                        System.out.println(registro.getValorTitulo());
-                        System.out.println(registro.getCodigoEmpresa());
-                        System.out.println(registro.getFloatNegociado());
-                        System.out.println("------------------------------------------------------");
-                    } else {
-                        final Trailer trailer = new Trailer(linha);
-                        System.out.println("CodigoRegistro :: " + trailer.getCodigoRegistro());
-                        System.out.println("Sequencial     :: " + trailer.getSequencial());
-                    }
-                }
+        try (InputStream is = new FileInputStream(new File("/Users/abilio/Downloads/R19011.RET.txt"))) {
+            final Leitor leitor = new Leitor(is);
+            registros = leitor.getRegistros();
+            final Iterator<Registro> i = registros.iterator();
+            while (i.hasNext()) {
+                final Registro r = i.next();
+                System.out.println(String.format("Numero Sequencial %d, Agencia Cobradora %s", r.getSequencial(), r.getAgenciaCobradora()));
             }
-        } catch (final Exception e) {
-            e.printStackTrace();
+            header = leitor.getHeader();
+            System.out.println(header.getNomeBanco());
+            trailer = leitor.getTrailer();
+            System.out.println(trailer.getSequencial());
+        } catch (final FileNotFoundException e) {
+            log.error("Arquivo nao encontrado ", e);
+        } catch (final IOException e) {
+            log.error("Erro ao ler o arquivo ", e);
         }
-
     }
 }
