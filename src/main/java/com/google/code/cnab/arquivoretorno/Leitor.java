@@ -7,25 +7,27 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.code.cnab.CnabFactory;
+import com.google.code.cnab.Registro;
 import com.google.code.cnab.arquivoretorno.header.Header;
-import com.google.code.cnab.arquivoretorno.registro.Registro;
 import com.google.code.cnab.arquivoretorno.trailer.Trailer;
+import com.google.code.cnab.bancos.Bancos;
 
 public class Leitor {
     private Header header;
     private Trailer trailer;
     private final List<Registro> registros = new ArrayList<>();
 
-    public Leitor(final InputStream is) throws IOException {
+    public Leitor(final InputStream is, final Bancos banco) throws IOException {
         try (InputStreamReader isr = new InputStreamReader(is); BufferedReader br = new BufferedReader(isr)) {
             String linha = null;
             while ((linha = br.readLine()) != null) {
                 if (linha.startsWith("0")) {
-                    this.header = new Header(linha);
+                    this.header = CnabFactory.getInstanceHeader(banco, linha);
                 } else if (linha.startsWith("1")) {
-                    this.registros.add(new Registro(linha));
+                    this.registros.add(CnabFactory.getInstanceRegistro(banco, linha));
                 } else {
-                    this.trailer = new Trailer(linha);
+                    this.trailer = CnabFactory.getInstanceTrailer(banco, linha);
                 }
             }
         }

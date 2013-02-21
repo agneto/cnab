@@ -2,7 +2,10 @@ package com.google.code.cnab.arquivoretorno.registro;
 
 public enum InscricaoDaEmpresa {
     CPF("01"),
-    CGC("02");
+    CGC("02"),
+    PIS("03"),
+    NAOTEM("98"),
+    OUTROS("99");
 
     private String codigo;
 
@@ -14,8 +17,8 @@ public enum InscricaoDaEmpresa {
         return this.codigo;
     }
 
-    public static InscricaoDaEmpresa valueOfCodigo(String codigo) {
-        for (InscricaoDaEmpresa inscricaoDaEmpresa : values()) {
+    public static InscricaoDaEmpresa valueOfCodigo(final String codigo) {
+        for (final InscricaoDaEmpresa inscricaoDaEmpresa : values()) {
             if (codigo.equals(inscricaoDaEmpresa.getCodigo())) {
                 return inscricaoDaEmpresa;
             }

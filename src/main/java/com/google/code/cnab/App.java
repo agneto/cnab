@@ -1,42 +1,42 @@
 package com.google.code.cnab;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
-import com.google.code.cnab.arquivoretorno.Leitor;
-import com.google.code.cnab.arquivoretorno.header.Header;
-import com.google.code.cnab.arquivoretorno.registro.Registro;
+import com.google.code.cnab.arquivoretorno.header.HeaderCaixa;
+import com.google.code.cnab.arquivoretorno.registro.RegistroCaixa;
 import com.google.code.cnab.arquivoretorno.trailer.Trailer;
+import com.google.code.cnab.arquivoretorno.trailer.TrailerCaixa;
+import com.google.code.cnab.bancos.Bancos;
 
 public class App {
     private static final Logger log = Logger.getLogger(App.class);
 
     public static void main(final String[] args) {
-        Header header;
-        Trailer trailer;
-        List<Registro> registros;
+        final HeaderCaixa header;
+        final TrailerCaixa trailer;
+        final List<RegistroCaixa> registros;
 
-        try (InputStream is = new FileInputStream(new File("/Users/abilio/Downloads/R19011.RET.txt"))) {
-            final Leitor leitor = new Leitor(is);
-            registros = leitor.getRegistros();
-            final Iterator<Registro> i = registros.iterator();
-            while (i.hasNext()) {
-                final Registro r = i.next();
-                System.out.println(String.format("Numero Sequencial %d, Agencia Cobradora %s", r.getSequencial(), r.getAgenciaCobradora()));
+        try {
+            final List<String> linhas = FileUtils.readLines(new File("/Users/abilio/Downloads/R19011.RET.txt"), "UTF8");
+            int count = 0;
+            for (final String linha : linhas) {
+                if (linha.startsWith("1")) {
+                    final Registro registro = CnabFactory.getInstanceRegistro(Bancos.CEF, linha);
+                    if (registro instanceof RegistroCaixa) {
+                        System.out.println(((RegistroCaixa) registro).getFloatNegociado());
+                        count++;
+                    }
+                } else if (linha.startsWith("9")) {
+                    final Trailer trailer2 = CnabFactory.getInstanceTrailer(Bancos.CEF, linha);
+                    System.out.println(trailer2.getCodigoRetorno());
+                }
             }
-            header = leitor.getHeader();
-            System.out.println(header.getNomeBanco());
-            trailer = leitor.getTrailer();
-            System.out.println(trailer.getSequencial());
-        } catch (final FileNotFoundException e) {
-            log.error("Arquivo nao encontrado ", e);
+            System.out.println(count);
         } catch (final IOException e) {
             log.error("Erro ao ler o arquivo ", e);
         }
