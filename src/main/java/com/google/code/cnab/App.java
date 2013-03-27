@@ -15,9 +15,6 @@ public class App {
     private static final Logger log = Logger.getLogger(App.class);
     
     public static void main(final String[] args) {
-        // final HeaderCaixa header;
-        // final TrailerCaixa trailer;
-        // final List<RegistroCaixa> registros;
         try {
             final List<String> linhas = FileUtils.readLines(new File("/Users/abilio/Downloads/R19011.RET.txt"), "UTF8");
             int count = 0;
