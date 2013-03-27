@@ -11,33 +11,37 @@ import com.google.code.cnab.arquivoretorno.trailer.TrailerCaixa;
 import com.google.code.cnab.bancos.Bancos;
 
 public abstract class CnabFactory {
+    
     public static Header getInstanceHeader(final Bancos banco, final String linha) {
-        Header header = null;
-        if (banco.equals(Bancos.CEF)) {
-            header = new HeaderCaixa(linha);
-        } else if (banco.equals(Bancos.BRADESCO)) {
-            header = new HeaderBradesco(linha);
+        switch (banco) {
+            case CEF:
+                return new HeaderCaixa(linha);
+            case BRADESCO:
+                return new HeaderBradesco(linha);
+            default:
+                return null;
         }
-        return header;
     }
-
+    
     public static Registro getInstanceRegistro(final Bancos banco, final String linha) {
-        Registro registro = null;
-        if (banco.equals(Bancos.CEF)) {
-            registro = new RegistroCaixa(linha);
-        } else if (banco.equals(Bancos.BRADESCO)) {
-            registro = new RegistroBradesco(linha);
+        switch (banco) {
+            case CEF:
+                return new RegistroCaixa(linha);
+            case BRADESCO:
+                return new RegistroBradesco(linha);
+            default:
+                return null;
         }
-        return registro;
     }
-
+    
     public static Trailer getInstanceTrailer(final Bancos banco, final String linha) {
-        Trailer trailer = null;
-        if (banco.equals(Bancos.CEF)) {
-            trailer = new TrailerCaixa(linha);
-        } else if (banco.equals(Bancos.BRADESCO)) {
-            trailer = new TrailerBradesco(linha);
+        switch (banco) {
+            case CEF:
+                return new TrailerCaixa(linha);
+            case BRADESCO:
+                return new TrailerBradesco(linha);
+            default:
+                return null;
         }
-        return trailer;
     }
 }
