@@ -7,20 +7,17 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
-import com.google.code.cnab.arquivoretorno.header.HeaderCaixa;
 import com.google.code.cnab.arquivoretorno.registro.RegistroCaixa;
 import com.google.code.cnab.arquivoretorno.trailer.Trailer;
-import com.google.code.cnab.arquivoretorno.trailer.TrailerCaixa;
 import com.google.code.cnab.bancos.Bancos;
 
 public class App {
     private static final Logger log = Logger.getLogger(App.class);
-
+    
     public static void main(final String[] args) {
-        final HeaderCaixa header;
-        final TrailerCaixa trailer;
-        final List<RegistroCaixa> registros;
-
+        // final HeaderCaixa header;
+        // final TrailerCaixa trailer;
+        // final List<RegistroCaixa> registros;
         try {
             final List<String> linhas = FileUtils.readLines(new File("/Users/abilio/Downloads/R19011.RET.txt"), "UTF8");
             int count = 0;
@@ -38,7 +35,7 @@ public class App {
             }
             System.out.println(count);
         } catch (final IOException e) {
-            log.error("Erro ao ler o arquivo ", e);
+            App.log.error("Erro ao ler o arquivo ", e);
         }
     }
 }
