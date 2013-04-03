@@ -17,6 +17,6 @@ public class InscricaoDaEmpresaTest {
 
     @Test
     public void codigoInvalidoRetornaNulo() {
-        Assert.assertNull(InscricaoDaEmpresa.valueOfCodigo("03"));
+        Assert.assertNull(InscricaoDaEmpresa.valueOfCodigo("04"));
     }
 }
