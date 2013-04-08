@@ -1,10 +1,10 @@
 package com.devmonsters.cnab.arquivoretorno;
 
+import com.devmonsters.cnab.Banco;
 import com.devmonsters.cnab.CnabFactory;
-import com.devmonsters.cnab.Registro;
 import com.devmonsters.cnab.arquivoretorno.header.Header;
+import com.devmonsters.cnab.arquivoretorno.registro.Registro;
 import com.devmonsters.cnab.arquivoretorno.trailer.Trailer;
-import com.devmonsters.cnab.bancos.Bancos;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class Leitor {
     private Trailer trailer;
     private final List<Registro> registros = new ArrayList<>();
 
-    public Leitor(final InputStream is, final Bancos banco) throws IOException {
+    public Leitor(final InputStream is, final Banco banco) throws IOException {
         try (InputStreamReader isr = new InputStreamReader(is); BufferedReader br = new BufferedReader(isr)) {
             String linha = null;
             while ((linha = br.readLine()) != null) {
