@@ -1,8 +1,8 @@
 package com.devmonsters.cnab;
 
+import com.devmonsters.cnab.arquivoretorno.registro.Registro;
 import com.devmonsters.cnab.arquivoretorno.registro.RegistroCaixa;
 import com.devmonsters.cnab.arquivoretorno.trailer.Trailer;
-import com.devmonsters.cnab.bancos.Bancos;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
@@ -19,13 +19,13 @@ public class App {
             int count = 0;
             for (final String linha : linhas) {
                 if (linha.startsWith("1")) {
-                    final Registro registro = CnabFactory.getInstanceRegistro(Bancos.CEF, linha);
+                    final Registro registro = CnabFactory.getInstanceRegistro(Banco.CEF, linha);
                     if (registro instanceof RegistroCaixa) {
                         System.out.println(((RegistroCaixa) registro).getFloatNegociado());
                         count++;
                     }
                 } else if (linha.startsWith("9")) {
-                    final Trailer trailer2 = CnabFactory.getInstanceTrailer(Bancos.CEF, linha);
+                    final Trailer trailer2 = CnabFactory.getInstanceTrailer(Banco.CEF, linha);
                     System.out.println(trailer2.getCodigoRetorno());
                 }
             }
