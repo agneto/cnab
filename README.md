@@ -1,4 +1,4 @@
-#CNAB
+###CNAB
 
 Este projeto visa disponibilizar classes para representação e leitura/escrita de arquivos no formato Febraban CNAB (240/400).
 
