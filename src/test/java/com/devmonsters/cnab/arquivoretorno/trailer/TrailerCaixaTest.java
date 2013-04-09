@@ -3,8 +3,6 @@ package com.devmonsters.cnab.arquivoretorno.trailer;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.devmonsters.cnab.arquivoretorno.registro.RegistroCaixa;
-
 public class TrailerCaixaTest {
     
     private static final String LINHA_VALIDA = "9201104                                                                                                                                                                                                                                                                                                                                                                                                   000928";
@@ -12,7 +10,12 @@ public class TrailerCaixaTest {
     
     @Test(expected = IllegalArgumentException.class)
     public void linhaInvalidaFalhaNaConstrucao() {
-        new RegistroCaixa(TrailerCaixaTest.LINHA_INVALIDA);
+        new TrailerCaixa(TrailerCaixaTest.LINHA_INVALIDA);
+    }
+    
+    @Test
+    public void objetoNaoPodeModificarLinha() {
+        Assert.assertEquals(LINHA_VALIDA, new TrailerCaixa(TrailerCaixaTest.LINHA_VALIDA).getLinha());
     }
     
     @Test

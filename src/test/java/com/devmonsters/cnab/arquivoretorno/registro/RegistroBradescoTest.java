@@ -18,6 +18,11 @@ public class RegistroBradescoTest {
     }
     
     @Test
+    public void objetoNaoPodeModificarLinha() {
+        Assert.assertEquals(LINHA_VALIDA, new RegistroBradesco(RegistroBradescoTest.LINHA_VALIDA).getLinha());
+    }
+    
+    @Test
     public void codigoRegistro() {
         Assert.assertEquals("1", new RegistroBradesco(RegistroBradescoTest.LINHA_VALIDA).getCodigoRegistro());
     }

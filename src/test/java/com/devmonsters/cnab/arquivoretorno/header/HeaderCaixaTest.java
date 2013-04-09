@@ -17,6 +17,11 @@ public class HeaderCaixaTest {
     }
     
     @Test
+    public void objetoNaoPodeModificarLinha() {
+        Assert.assertEquals(LINHA_VALIDA, new HeaderCaixa(HeaderCaixaTest.LINHA_VALIDA).getLinha());
+    }
+    
+    @Test
     public void codigoRegistro() {
         Assert.assertEquals("0", new HeaderCaixa(HeaderCaixaTest.LINHA_VALIDA).getCodigoRegistro());
     }

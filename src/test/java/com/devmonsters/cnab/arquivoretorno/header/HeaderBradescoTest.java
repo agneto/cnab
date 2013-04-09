@@ -13,7 +13,12 @@ public class HeaderBradescoTest {
     
     @Test(expected = IllegalArgumentException.class)
     public void linhaInvalidaFalhaNaConstrucao() {
-        new HeaderCaixa(HeaderBradescoTest.LINHA_INVALIDA);
+        new HeaderBradesco(HeaderBradescoTest.LINHA_INVALIDA);
+    }
+    
+    @Test
+    public void objetoNaoPodeModificarLinha() {
+        Assert.assertEquals(LINHA_VALIDA, new HeaderBradesco(HeaderBradescoTest.LINHA_VALIDA).getLinha());
     }
     
     @Test

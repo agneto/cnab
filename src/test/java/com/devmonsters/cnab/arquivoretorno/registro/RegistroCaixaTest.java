@@ -18,6 +18,11 @@ public class RegistroCaixaTest {
     }
     
     @Test
+    public void objetoNaoPodeModificarLinha() {
+        Assert.assertEquals(LINHA_VALIDA, new RegistroCaixa(RegistroCaixaTest.LINHA_VALIDA).getLinha());
+    }
+    
+    @Test
     public void codigoRegistro() {
         Assert.assertEquals("1", new RegistroCaixa(RegistroCaixaTest.LINHA_VALIDA).getCodigoRegistro());
     }
